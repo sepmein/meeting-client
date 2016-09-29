@@ -1,0 +1,8 @@
+.footer {
+    text-align: center;
+}
+.floating-action-button {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+}

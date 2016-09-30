@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import {People} from '../people/people.js'
+import People from '../people/people.js'
+import './attendees.css'
 
 export default class Attendees extends Component {
     render() {
@@ -10,7 +11,6 @@ export default class Attendees extends Component {
                     {
                         this.props.attendees.hosts.map(
                             function (host) {
-                                console.log(host);
                                 return (
                                     <People name={host.name}/>
                                 );
@@ -19,10 +19,28 @@ export default class Attendees extends Component {
                     }
                 </div>
                 <div>
-                    <span></span>
+                    <span>出席：</span>
+                    {
+                        this.props.attendees.attendees.map(
+                            function (attendee) {
+                                return (
+                                    <People name={attendee.name}/>
+                                );
+                            }
+                        )
+                    }
                 </div>
                 <div>
-                    <span></span>
+                    <span>列席：</span>
+                    {
+                        this.props.attendees.observers.map(
+                            function (observer) {
+                                return (
+                                    <People name={observer.name}/>
+                                );
+                            }
+                        )
+                    }
                 </div>
             </div>
         );

@@ -20,15 +20,26 @@ import Agenda from '../agenda/agenda.js'
 
 let attendees = {
     hosts: [
-        { name: '吴寰宇' }
+        {
+            key: 1,
+            name: '吴寰宇'
+        }
     ],
     attendees: [
-        { name: '张春哲'},
-        { name: '毛盛华'}
+        {
+            key: 2, name: '张春哲'
+        },
+        {
+            key: 3, name: '毛盛华'
+        }
     ],
-    observer: [
-        { name: '林声'},
-        { name: '黄绿斓'}
+    observers: [
+        {
+            key: 4, name: '林声'
+        },
+        {
+            key: 5, name: '黄绿斓'
+        }
     ]
 }
 const Meeting = () => (

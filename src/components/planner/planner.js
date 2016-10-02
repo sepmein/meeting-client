@@ -130,6 +130,12 @@ class Planner extends React.Component {
                         {this.state.meetingRoom}
                     </div>
                 );
+            default:
+                return (
+                    <div>
+                        ended
+                    </div>
+                );
         }
     }
 

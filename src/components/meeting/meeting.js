@@ -1,6 +1,5 @@
 import React from 'react'
 import {Card, CardActions, CardHeader, CardMedia, CardText, CardTitle} from 'material-ui/Card'
-import FlatButton from 'material-ui/FlatButton'
 import Attendees from '../attendees/attendees.js'
 import Agenda from '../agenda/agenda.js'
 /**

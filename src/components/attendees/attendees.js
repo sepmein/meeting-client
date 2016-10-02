@@ -12,7 +12,7 @@ export default class Attendees extends Component {
                         this.props.attendees.hosts.map(
                             function (host) {
                                 return (
-                                    <People name={host.name}/>
+                                    <People key={host.key} name={host.name}/>
                                 );
                             }
                         )
@@ -24,7 +24,7 @@ export default class Attendees extends Component {
                         this.props.attendees.attendees.map(
                             function (attendee) {
                                 return (
-                                    <People name={attendee.name}/>
+                                    <People key={attendee.key} name={attendee.name}/>
                                 );
                             }
                         )
@@ -36,7 +36,7 @@ export default class Attendees extends Component {
                         this.props.attendees.observers.map(
                             function (observer) {
                                 return (
-                                    <People name={observer.name}/>
+                                    <People key={observer.key} name={observer.name}/>
                                 );
                             }
                         )

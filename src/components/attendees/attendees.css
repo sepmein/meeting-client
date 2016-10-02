@@ -1,3 +1,6 @@
 .attendees {
     display: flex;
 }
+.attendees>div {
+    display: flex;
+}

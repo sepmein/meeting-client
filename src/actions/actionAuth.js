@@ -47,14 +47,21 @@ export let register = (email, password) => {
     password
   };
 };
-//
-// export let registerSuccess = () => {
-//
-// };
-//
-// export let registerFailure = () => {
-//
-// };
+
+export let registerSuccess = (email, token) => {
+  return {
+    type: REGISTER_SUCCESS,
+    email,
+    token
+  };
+};
+
+export let registerFailure = why => {
+  return {
+    type: REGISTER_FAILURE,
+    why
+  };
+};
 
 export let forgot = email => {
   return {

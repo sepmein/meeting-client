@@ -4,19 +4,22 @@
 'use strict';
 /**
  * @module reducer/reducerAuth
+ * @see ../action/actionAuth
  * */
 
 // import actions and constants
 import {
-  LOGIN, REGISTER, FORGOT, RESET, DELETE,
-  login, register, forgot, reset, doDelete
+  LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE,
+  REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE,
+  FORGOT, RESET, DELETE
 } from '../actions/actionAuth';
 
 // define initial state
 let initialState = {
   user: null,
   token: null,
-  isAuthenticating: false
+  isAuthenticating: false,
+  why: ''
 };
 
 /**
@@ -27,20 +30,42 @@ let initialState = {
  * */
 export default function reducerAuth(state = initialState, action) {
   switch (action.type) {
-    case LOGIN: {
-      break;
+    case LOGIN || REGISTER: {
+      return {
+        isAuthenticating: true,
+        user: null,
+        token: null
+      };
     }
-    case REGISTER: {
-      break;
+    case LOGIN_SUCCESS || REGISTER_SUCCESS: {
+      return {
+        isAuthenticating: false,
+        user: action.email,
+        token: action.token
+      };
+    }
+    case LOGIN_FAILURE || REGISTER_FAILURE: {
+      return {
+        isAuthenticating: false,
+        user: null,
+        token: null,
+        why: action.why
+      };
     }
     case FORGOT: {
-      break;
+      return Object.assign({}, state, {
+        isAuthenticating: true
+      });
     }
     case RESET: {
-      break;
+      return Object.assign({}, state, {
+        isAuthenticating: true
+      });
     }
     case DELETE: {
-      break;
+      return Object.assign({}, state, {
+        isAuthenticating: true
+      });
     }
     default: {
       return state;

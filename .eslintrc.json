@@ -1,4 +1,10 @@
 {
-    "extends": "google",
-    "installedESLint": true
+  "extends": "google",
+  "installedESLint": true,
+  "plugin": ["react"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  }
 }

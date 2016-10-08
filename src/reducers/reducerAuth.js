@@ -23,10 +23,10 @@ let initialState = {
 };
 
 /**
- * The reducer function of the auth part.
+ * The meetingApp function of the auth part.
  * @param {Object} state - The state of authentication redux.
  * @param {Object} action - The action created by action creator.
- * @return {Object} state - State returned by the reducer.
+ * @return {Object} state - State returned by the meetingApp.
  * */
 export default function reducerAuth(state = initialState, action) {
   switch (action.type) {

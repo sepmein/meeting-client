@@ -1,7 +1,6 @@
 /**
  * Created by Spencer on 2016/10/8.
  */
-'use strict';
 /**
  * @module store
  * @see reducers

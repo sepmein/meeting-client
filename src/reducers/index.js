@@ -5,7 +5,6 @@
  * @module combine reducers
  * @see {@link './reducerAuth'}
  * */
-'use strict';
 import {combineReducers} from 'redux';
 import auth from './reducerAuth';
 

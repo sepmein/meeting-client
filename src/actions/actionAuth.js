@@ -1,7 +1,6 @@
 /**
  * Created by Spencer on 2016/10/3.
  */
-'use strict';
 /**
  * @module action/actionAuth
  * */
@@ -15,6 +14,7 @@ export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const FORGOT = 'FORGOT';
 export const RESET = 'RESET';
 export const DELETE = 'DELETE';
+export const CHECK_RETURNING_USER = 'CHECK_RETURNING_USER';
 // actions
 // define that something happened
 export let login = (email, password) => {
@@ -80,6 +80,13 @@ export let reset = password => {
 export let doDelete = email => {
   return {
     type: DELETE,
+    email
+  };
+};
+
+export let checkReturningUser = email => {
+  return {
+    type: CHECK_RETURNING_USER,
     email
   };
 };

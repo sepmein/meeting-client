@@ -1,7 +1,6 @@
 /**
  * Created by Spencer on 2016/10/3.
  */
-'use strict';
 /**
  * @module reducer/reducerAuth
  * @see ../action/actionAuth

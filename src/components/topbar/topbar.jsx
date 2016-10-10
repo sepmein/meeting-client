@@ -7,7 +7,8 @@ import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import SocialPersonOutline from 'material-ui/svg-icons/social/person-outline';
 import {connect} from 'react-redux';
-
+import {toggleAuthDialog} from '../../actions/actionAuth';
+import Auth from '../auth/auth';
 export class Topbar extends Component {
   static propTypes = {
     user: PropTypes.string
@@ -20,7 +21,8 @@ export class Topbar extends Component {
         iconElementRight={
           (!this.props.user) ?
             (
-              <FlatButton>
+              <FlatButton
+                onClick={this.props.onAuthClick}>
                 登录
               </FlatButton>
             ) :
@@ -30,7 +32,9 @@ export class Topbar extends Component {
               </IconButton>
             )
         }
-      />
+      >
+        <Auth/>
+      </AppBar>
     );
   }
 }
@@ -42,6 +46,12 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    onAuthClick: () => {
+      console.log('clicked');
+      console.log(toggleAuthDialog());
+      dispatch(toggleAuthDialog());
+    }
+  };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Topbar);

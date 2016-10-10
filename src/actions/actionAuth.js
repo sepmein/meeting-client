@@ -5,21 +5,23 @@
  * @module action/actionAuth
  * */
 // constants
-export const LOGIN = 'LOGIN';
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const REGISTER = 'REGISTER';
-export const REGISTER_FAILURE = 'REGISTER_FAILURE';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const FORGOT = 'FORGOT';
-export const RESET = 'RESET';
-export const DELETE = 'DELETE';
-export const CHECK_RETURNING_USER = 'CHECK_RETURNING_USER';
+export const TYPES = {};
+TYPES.LOGIN = 'LOGIN';
+TYPES.LOGIN_FAILURE = 'LOGIN_FAILURE';
+TYPES.LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+TYPES.REGISTER = 'REGISTER';
+TYPES.REGISTER_FAILURE = 'REGISTER_FAILURE';
+TYPES.REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+TYPES.FORGOT = 'FORGOT';
+TYPES.RESET = 'RESET';
+TYPES.DELETE = 'DELETE';
+TYPES.CHECK_RETURNING_USER = 'CHECK_RETURNING_USER';
+TYPES.TOGGLE_AUTH_DIALOG = 'TOGGLE_AUTH_DIALOG';
 // actions
 // define that something happened
 export let login = (email, password) => {
   return {
-    type: LOGIN,
+    type: TYPES.LOGIN,
     email,
     password
   };
@@ -27,7 +29,7 @@ export let login = (email, password) => {
 
 export let loginSuccess = (email, token) => {
   return {
-    type: LOGIN_SUCCESS,
+    type: TYPES.LOGIN_SUCCESS,
     email,
     token
   };
@@ -35,14 +37,14 @@ export let loginSuccess = (email, token) => {
 
 export let loginFailure = why => {
   return {
-    type: LOGIN_FAILURE,
+    type: TYPES.LOGIN_FAILURE,
     why
   };
 };
 
 export let register = (email, password) => {
   return {
-    type: REGISTER,
+    type: TYPES.REGISTER,
     email,
     password
   };
@@ -50,7 +52,7 @@ export let register = (email, password) => {
 
 export let registerSuccess = (email, token) => {
   return {
-    type: REGISTER_SUCCESS,
+    type: TYPES.REGISTER_SUCCESS,
     email,
     token
   };
@@ -58,35 +60,41 @@ export let registerSuccess = (email, token) => {
 
 export let registerFailure = why => {
   return {
-    type: REGISTER_FAILURE,
+    type: TYPES.REGISTER_FAILURE,
     why
   };
 };
 
 export let forgot = email => {
   return {
-    type: FORGOT,
+    type: TYPES.FORGOT,
     email
   };
 };
 
 export let reset = password => {
   return {
-    type: RESET,
+    type: TYPES.RESET,
     password
   };
 };
 
 export let doDelete = email => {
   return {
-    type: DELETE,
+    type: TYPES.DELETE,
     email
   };
 };
 
 export let checkReturningUser = email => {
   return {
-    type: CHECK_RETURNING_USER,
+    type: TYPES.CHECK_RETURNING_USER,
     email
+  };
+};
+
+export let toggleAuthDialog = () => {
+  return {
+    type: TYPES.TOGGLE_AUTH_DIALOG
   };
 };

@@ -7,18 +7,15 @@
  * */
 
 // import actions and constants
-import {
-  LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE,
-  REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE,
-  FORGOT, RESET, DELETE
-} from '../actions/actionAuth';
+import {TYPES} from '../actions/actionAuth';
 
 // define initial state
 let initialState = {
   user: null,
   token: null,
   isAuthenticating: false,
-  why: ''
+  why: '',
+  isAuthDialogOpened: false
 };
 
 /**
@@ -29,21 +26,21 @@ let initialState = {
  * */
 export default function reducerAuth(state = initialState, action) {
   switch (action.type) {
-    case LOGIN || REGISTER: {
+    case TYPES.LOGIN || TYPES.REGISTER: {
       return {
         isAuthenticating: true,
         user: null,
         token: null
       };
     }
-    case LOGIN_SUCCESS || REGISTER_SUCCESS: {
+    case TYPES.LOGIN_SUCCESS || TYPES.REGISTER_SUCCESS: {
       return {
         isAuthenticating: false,
         user: action.email,
         token: action.token
       };
     }
-    case LOGIN_FAILURE || REGISTER_FAILURE: {
+    case TYPES.LOGIN_FAILURE || TYPES.REGISTER_FAILURE: {
       return {
         isAuthenticating: false,
         user: null,
@@ -51,19 +48,24 @@ export default function reducerAuth(state = initialState, action) {
         why: action.why
       };
     }
-    case FORGOT: {
+    case TYPES.FORGOT: {
       return Object.assign({}, state, {
         isAuthenticating: true
       });
     }
-    case RESET: {
+    case TYPES.RESET: {
       return Object.assign({}, state, {
         isAuthenticating: true
       });
     }
-    case DELETE: {
+    case TYPES.DELETE: {
       return Object.assign({}, state, {
         isAuthenticating: true
+      });
+    }
+    case TYPES.TOGGLE_AUTH_DIALOG: {
+      return Object.assign({}, state, {
+        isAuthDialogOpened: !state.isAuthDialogOpened
       });
     }
     default: {

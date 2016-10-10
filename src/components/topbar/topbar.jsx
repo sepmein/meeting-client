@@ -48,8 +48,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onAuthClick: () => {
-      console.log('clicked');
-      console.log(toggleAuthDialog());
       dispatch(toggleAuthDialog());
     }
   };

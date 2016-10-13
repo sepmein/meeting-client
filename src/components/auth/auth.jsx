@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 import {connect} from 'react-redux';
 import {
   checkReturningUser, login, register,
@@ -8,7 +9,13 @@ import {
 } from '../../actions/actionAuth';
 export class Auth extends Component {
   render() {
-    let actions = [];
+    const actions = [
+      <FlatButton
+        label="next"
+        primary={true}
+        keyboardFocused={true}
+      />
+    ];
 
     return (
       <Dialog

@@ -7,6 +7,11 @@
  * @export Object store - the redux store object.
  * */
 import meetingApp from '../reducers';
-import {createStore} from 'redux';
-let store = createStore(meetingApp);
+import {createStore, applyMiddleware} from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import sagas from '../sagas/sagaLoading';
+
+const sagaMiddleware = createSagaMiddleware();
+let store = createStore(meetingApp, applyMiddleware(createSagaMiddleware()));
+
 export default store;

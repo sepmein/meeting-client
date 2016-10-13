@@ -5,7 +5,7 @@ import './index.css';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
-
+import 'whatwg-fetch';
 /* redux */
 import {Provider} from 'react-redux';
 import store from './store/store';

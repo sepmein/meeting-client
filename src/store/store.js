@@ -12,6 +12,7 @@ import createSagaMiddleware from 'redux-saga';
 import sagas from '../sagas/sagaLoading';
 
 const sagaMiddleware = createSagaMiddleware();
-let store = createStore(meetingApp, applyMiddleware(createSagaMiddleware()));
+let store = createStore(meetingApp, applyMiddleware(sagaMiddleware));
+sagaMiddleware.run(sagas);
 
 export default store;

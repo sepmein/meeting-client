@@ -6,13 +6,14 @@
  * @see reducers
  * @export Object store - the redux store object.
  * */
+import React from 'react';
 import meetingApp from '../reducers';
 import {createStore, applyMiddleware} from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import sagas from '../sagas/sagaLoading';
+import {watchCheckUsername} from '../sagas/sagaAuth';
 
 const sagaMiddleware = createSagaMiddleware();
 let store = createStore(meetingApp, applyMiddleware(sagaMiddleware));
-sagaMiddleware.run(sagas);
+sagaMiddleware.run(watchCheckUsername);
 
 export default store;

@@ -8,7 +8,6 @@
 
 // import actions and constants
 import {TYPES} from '../actions/actionAuth';
-
 // define initial state
 let initialState = {
   user: null,
@@ -17,7 +16,6 @@ let initialState = {
   why: '',
   isAuthDialogOpened: false
 };
-
 /**
  * The meetingApp function of the auth part.
  * @param {Object} state - The state of authentication redux.
@@ -66,6 +64,11 @@ export default function reducerAuth(state = initialState, action) {
     case TYPES.TOGGLE_AUTH_DIALOG: {
       return Object.assign({}, state, {
         isAuthDialogOpened: !state.isAuthDialogOpened
+      });
+    }
+    case TYPES.CHECK_USERNAME: {
+      return Object.assign({}, state, {
+        isAuthenticating: true
       });
     }
     default: {

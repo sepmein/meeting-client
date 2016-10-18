@@ -4,16 +4,24 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {connect} from 'react-redux';
 import {
-  checkReturningUser, login, register,
+  checkUsername, login, register,
   toggleAuthDialog
 } from '../../actions/actionAuth';
 export class Auth extends Component {
+  state = {
+    username: ''
+  };
+  handleUsernameInput = (e, value) => {
+    this.setState({username: value});
+  };
+
   render() {
     const actions = [
       <FlatButton
         label="next"
         primary={true}
         keyboardFocused={true}
+        onClick={() => this.props.handleCheckUsername(this.state.username)}
       />
     ];
 
@@ -25,7 +33,10 @@ export class Auth extends Component {
         onRequestClose={this.props.handleToggleAuthDialog}>
         <TextField
           hintText="email"
-          floatingLabelText="用户名"/>
+          floatingLabelText="用户名"
+          onChange={this.handleUsernameInput}
+          value={this.state.username}
+        />
       </Dialog>
     );
   }
@@ -40,9 +51,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     handleToggleAuthDialog: () => dispatch(toggleAuthDialog()),
-    handleCheckReturningUser: email => dispatch(checkReturningUser(email)),
     handleLogin: (email, pass) => dispatch(login(email, pass)),
-    handleRegister: (email, pass) => dispatch(register(email, pass))
+    handleRegister: (email, pass) => dispatch(register(email, pass)),
+    handleCheckUsername: email => dispatch(checkUsername(email))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);

@@ -6,5 +6,13 @@
     "ecmaFeatures": {
       "jsx": true
     }
+  },
+  "env" : {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "globals": {
+    "fetch": true
   }
 }

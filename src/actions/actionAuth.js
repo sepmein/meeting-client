@@ -15,7 +15,9 @@ TYPES.REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 TYPES.FORGOT = 'FORGOT';
 TYPES.RESET = 'RESET';
 TYPES.DELETE = 'DELETE';
-TYPES.CHECK_RETURNING_USER = 'CHECK_RETURNING_USER';
+TYPES.CHECK_USERNAME = 'CHECK_USERNAME';
+TYPES.USER_FOUND = 'USER_FOUND';
+TYPES.USER_NOT_FOUND = 'USER_NOT_FOUND';
 TYPES.TOGGLE_AUTH_DIALOG = 'TOGGLE_AUTH_DIALOG';
 // actions
 // define that something happened
@@ -86,9 +88,9 @@ export let doDelete = email => {
   };
 };
 
-export let checkReturningUser = email => {
+export let checkUsername = email => {
   return {
-    type: TYPES.CHECK_RETURNING_USER,
+    type: TYPES.CHECK_USERNAME,
     email
   };
 };

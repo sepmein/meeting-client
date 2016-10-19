@@ -4,26 +4,69 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {connect} from 'react-redux';
 import {
-  checkUsername, login, register,
+  checkEmail, login, register,
   toggleAuthDialog
 } from '../../actions/actionAuth';
 export class Auth extends Component {
   state = {
-    username: ''
+    email: '',
+    password: ''
   };
-  handleUsernameInput = (e, value) => {
-    this.setState({username: value});
+  handleEmailInput = (event, value) => {
+    this.setState({email: value});
+  };
+  handlePasswordInput = (event, value) => {
+    this.setState({password: value});
+  };
+  handleOnEmailTextFieldKeyDown = event => {
+    if(event.key === 'Enter') {
+      this.props.handleCheckEmail(this.state.email);
+    }
+  };
+  handleOnPasswordTextFieldKeyDown = event => {
+    if (event.key === 'Enter') {
+      if(this.props.isReturningUser) {
+        this.props.handleLogin(this.state.email, this.state.password);
+      } else {
+        this.props.handleRegister(this.state.email, this.state.password);
+      }
+    }
   };
 
   render() {
-    const actions = [
-      <FlatButton
-        label="next"
-        primary={true}
-        keyboardFocused={true}
-        onClick={() => this.props.handleCheckUsername(this.state.username)}
-      />
-    ];
+    const actions = this.props.emailChecked ?
+      (
+        this.props.isReturningUser ?
+          [
+            <FlatButton
+              label="login"
+              primary={true}
+              onClick={() => this.props.handleLogin(this.state.email, this.state.password)}
+            />,
+            <FlatButton
+              label='cancel'
+              onClick={this.props.handleToggleAuthDialog}
+            />
+          ]
+          :
+          [
+            <FlatButton
+              label="register"
+              primary={true}
+              onClick={() => this.props.handleRegister(this.state.email, this.state.password)}
+            />,
+            <FlatButton
+              label='cancel'
+              onClick={this.props.handleToggleAuthDialog}
+            />
+          ]) :
+      [
+        <FlatButton
+          label="next"
+          primary={true}
+            onClick={() => this.props.handleCheckEmail(this.state.email)}
+        />
+      ];
 
     return (
       <Dialog
@@ -31,12 +74,27 @@ export class Auth extends Component {
         actions={actions}
         open={this.props.isAuthDialogOpened}
         onRequestClose={this.props.handleToggleAuthDialog}>
-        <TextField
-          hintText="email"
-          floatingLabelText="用户名"
-          onChange={this.handleUsernameInput}
-          value={this.state.username}
-        />
+        {
+          this.props.emailChecked ?
+          <TextField
+            floatingLabelText="密码"
+            hintText={"password"}
+            onChange={this.handlePasswordInput}
+            onKeyDown={this.handleOnPasswordTextFieldKeyDown}
+            type="password"
+            value={this.state.password}
+          />
+          :
+          <TextField
+            errorText={this.props.showEmailInputErrorText?"输入正确的邮箱地址":null}
+            floatingLabelText="用户名"
+            autoFocus
+            hintText="email"
+            onChange={this.handleEmailInput}
+            onKeyDown={this.handleOnEmailTextFieldKeyDown}
+            value={this.state.email}
+          />
+        }
       </Dialog>
     );
   }
@@ -45,15 +103,17 @@ const mapStateToProps = state => {
   return {
     isAuthDialogOpened: state.auth.isAuthDialogOpened,
     isReturningUser: state.auth.isReturningUser,
-    isLoading: state.isLoading
+    isLoading: state.isLoading,
+    showEmailInputErrorText: state.auth.showEmailInputErrorText,
+    emailChecked: state.auth.emailChecked
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     handleToggleAuthDialog: () => dispatch(toggleAuthDialog()),
-    handleLogin: (email, pass) => dispatch(login(email, pass)),
-    handleRegister: (email, pass) => dispatch(register(email, pass)),
-    handleCheckUsername: email => dispatch(checkUsername(email))
+    handleLogin: (email, password) => dispatch(login(email, password)),
+    handleRegister: (email, password) => dispatch(register(email, password)),
+    handleCheckEmail: email => dispatch(checkEmail(email))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);

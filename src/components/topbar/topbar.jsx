@@ -11,7 +11,7 @@ import {toggleAuthDialog} from '../../actions/actionAuth';
 import Auth from '../auth/auth';
 export class Topbar extends Component {
   static propTypes = {
-    user: PropTypes.string
+    email: PropTypes.string
   };
 
   render() {
@@ -19,7 +19,7 @@ export class Topbar extends Component {
       <AppBar
         title="传防所会议系统"
         iconElementRight={
-          (!this.props.user) ?
+          (!this.props.email) ?
             (
               <FlatButton
                 onClick={this.props.onAuthClick}>
@@ -27,7 +27,7 @@ export class Topbar extends Component {
               </FlatButton>
             ) :
             (
-              <IconButton tooltip={'Login'}>
+              <IconButton tooltip={this.props.email}>
                 <SocialPersonOutline/>
               </IconButton>
             )
@@ -41,7 +41,7 @@ export class Topbar extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.auth.user
+    email: state.auth.email
   };
 };
 

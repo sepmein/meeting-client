@@ -10,10 +10,10 @@ import React from 'react';
 import meetingApp from '../reducers';
 import {createStore, applyMiddleware} from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import {watchCheckUsername} from '../sagas/sagaAuth';
+import {watchCheckEmail} from '../sagas/sagaAuth';
 
 const sagaMiddleware = createSagaMiddleware();
 let store = createStore(meetingApp, applyMiddleware(sagaMiddleware));
-sagaMiddleware.run(watchCheckUsername);
+sagaMiddleware.run(watchCheckEmail);
 
 export default store;

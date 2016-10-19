@@ -9,3 +9,12 @@
 export function get(key) {
   return localStorage.getItem(key);
 }
+
+/**
+ * store into storage
+ * @param {String} key - key
+ * @param {String} value - value
+ * */
+export function store(key, value) {
+  localStorage.setItem(key, value);
+}

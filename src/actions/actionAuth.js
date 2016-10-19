@@ -15,10 +15,12 @@ TYPES.REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 TYPES.FORGOT = 'FORGOT';
 TYPES.RESET = 'RESET';
 TYPES.DELETE = 'DELETE';
-TYPES.CHECK_USERNAME = 'CHECK_USERNAME';
-TYPES.USER_FOUND = 'USER_FOUND';
-TYPES.USER_NOT_FOUND = 'USER_NOT_FOUND';
+TYPES.CHECK_EMAIL = 'CHECK_EMAIL';
 TYPES.TOGGLE_AUTH_DIALOG = 'TOGGLE_AUTH_DIALOG';
+TYPES.IS_VALID_EMAIL_INPUT = 'IS_VALID_EMAIL_INPUT';
+TYPES.IS_INVALID_EMAIL_INPUT = 'IS_INVALID_EMAIL_INPUT';
+TYPES.SET_AS_RETURNING_USER = 'SET_AS_RETURNING_USER';
+TYPES.SET_EMAIL_CHECKED = 'SET_EMAIL_CHECKED';
 // actions
 // define that something happened
 export let login = (email, password) => {
@@ -88,9 +90,9 @@ export let doDelete = email => {
   };
 };
 
-export let checkUsername = email => {
+export let checkEmail = email => {
   return {
-    type: TYPES.CHECK_USERNAME,
+    type: TYPES.CHECK_EMAIL,
     email
   };
 };
@@ -100,3 +102,28 @@ export let toggleAuthDialog = () => {
     type: TYPES.TOGGLE_AUTH_DIALOG
   };
 };
+
+export let setValidEmailInput = () => {
+  return {
+    type: TYPES.IS_VALID_EMAIL_INPUT
+  };
+};
+
+export let setInvalidEmailInput = () => {
+  return {
+    type: TYPES.IS_INVALID_EMAIL_INPUT
+  };
+};
+
+export let setAsReturningUser = () => {
+  return {
+    type: TYPES.SET_AS_RETURNING_USER
+  };
+};
+
+export let setUsernameChecked = () => {
+  return {
+    type: TYPES.SET_EMAIL_CHECKED
+  };
+};
+

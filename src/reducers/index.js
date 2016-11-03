@@ -5,11 +5,12 @@
  * @module combine reducers
  * @see {@link './reducerAuth'}
  * */
-import {combineReducers} from 'redux';
-import auth from './reducerAuth';
+import {combineReducers} from "redux";
+import auth from "./reducerAuth";
+import message from "./reducerMessage";
 
 const meetingApp = combineReducers({
-  auth
+  auth, message
 });
 
 export default meetingApp;

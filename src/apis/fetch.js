@@ -20,6 +20,7 @@ export function get(url) {
         resolve(json);
       })
       .catch(e => {
+        console.log(e);
         reject(e);
       });
   });
@@ -71,10 +72,10 @@ export function put(url, args) {
       body: args
     })
       .then(response => {
-        return response.json();
+        return response;
       })
-      .then(json => {
-        resolve(json);
+      .then(response => {
+        resolve(response);
       })
       .catch(e => {
         reject(e);
@@ -99,17 +100,16 @@ export function logout() {
  * @throws {Error} error - an Error include error text
  * */
 function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
+  if (response.ok) {
     return response;
   }
-  // error.message = response.json();
   throw new Error(response.statusText);
 }
 
 /**
  * get json of the response
  * @param {Object} response - the response
- * @return {JSON} json - JSON results of the response
+ * @return {Object} json - JSON results of the response
  * */
 function parseJSON(response) {
   return response.json();

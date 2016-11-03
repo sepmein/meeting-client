@@ -6,14 +6,17 @@
  * @see reducers
  * @export Object store - the redux store object.
  * */
-import React from 'react';
-import meetingApp from '../reducers';
-import {createStore, applyMiddleware} from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import {watchCheckEmail} from '../sagas/sagaAuth';
+import React from "react";
+import meetingApp from "../reducers";
+import {createStore, applyMiddleware, compose} from "redux";
+import createSagaMiddleware from "redux-saga";
+import sagas from "../sagas";
 
 const sagaMiddleware = createSagaMiddleware();
-let store = createStore(meetingApp, applyMiddleware(sagaMiddleware));
-sagaMiddleware.run(watchCheckEmail);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+let store = createStore(meetingApp, composeEnhancers(
+  applyMiddleware(sagaMiddleware)
+));
+sagaMiddleware.run(sagas);
 
 export default store;

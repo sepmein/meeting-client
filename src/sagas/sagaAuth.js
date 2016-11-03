@@ -1,13 +1,19 @@
-import {takeEvery} from 'redux-saga';
-import {call, put} from 'redux-saga/effects';
-import {get, post} from '../apis/fetch';
-import {store} from '../apis/storage';
+import {call, put} from "redux-saga/effects";
+import {get, post} from "../apis/fetch";
+import {del, store} from "../apis/storage";
 import {
-  TYPES, loginSuccess, loginFailure,
-  setValidEmailInput, setInvalidEmailInput,
-  setUsernameChecked, setAsReturningUser
-} from '../actions/actionAuth';
-import {api} from '../config';
+  loginSuccess,
+  loginFailure,
+  registerSuccess,
+  registerFailure,
+  setValidEmailInput,
+  setInvalidEmailInput,
+  setUsernameChecked,
+  setAsReturningUser,
+  toggleAuthDialog
+} from "../actions/actionAuth";
+import {showMessage} from "../actions/actionMessage";
+import {api} from "../config";
 let authRootEndPoint = 'http://' + api.auth.rootEndPoint + ':' + api.auth.port;
 /**
  * check username
@@ -20,11 +26,14 @@ export function * checkEmail(action) {
     yield put(setValidEmailInput());
     try {
       const result = yield call(get, authRootEndPoint + '/' + action.email);
-      yield put(setUsernameChecked());
-      yield put(setAsReturningUser());
+      if (result.ok) {
+        yield put(setUsernameChecked());
+        yield put(setAsReturningUser());
+      } else {
+        yield put(setUsernameChecked());
+      }
     } catch (e) {
-      console.log(e);
-      yield put(setAsReturningUser());
+      yield put(showMessage('Error: ' + e.message));
     }
   } else {
     yield put(setInvalidEmailInput());
@@ -32,11 +41,11 @@ export function * checkEmail(action) {
 }
 
 /**
- * login
+ * sagaLogin
  * @param {Object} action - action objects
  * @yield {Object} put - put effects
  * */
-export function * login(action) {
+export function * sagaLogin(action) {
   try {
     const data = yield call(post, authRootEndPoint + '/login',
       {email: action.email, password: action.password});
@@ -46,44 +55,65 @@ export function * login(action) {
   }
 }
 /**
- * login success, store token to localStorage
+ * sagaLogin success, store token to localStorage
  * @param {Object} action - action
  * @yield {Object} put - effects
  * */
-function * sagaLoginSuccess(action) {
+export function * sagaLoginSuccess(action) {
   store('email', action.email);
   store('token', action.token);
+  yield put(showMessage('login success'));
+  yield put(toggleAuthDialog());
 }
 
 /**
- * login failure
+ * sagaLogin failure
  * @param {Object} action - action
  * @yield {Object} put - effects
  * */
-function * sagaLoginFailure(action) {
-
+export function * sagaLoginFailure(action) {
+  yield put(showMessage(action.why));
 }
 /**
- * register
+ * sagaRegister
  * @param {Object} action - action objects
  * @yield {Object} put - put effects
  * */
-export function * register(action) {
+export function * sagaRegister(action) {
   try {
-    const data = yield call(post, authRootEndPoint + '/register');
-    yield put({type: TYPES.REGISTER_SUCCESS, data});
+    const data = yield call(post, authRootEndPoint + '/register',
+      {email: action.email, password: action.password});
+    yield put(registerSuccess(action.email, data.token));
   } catch (e) {
-    yield put({type: TYPES.REGISTER_FAILURE, e});
+    yield put(registerFailure(e.message));
   }
 }
+
 /**
- * watch check username
- * @yield {Object} put - put effects
+ * show message after success register
+ * @param {Object} action - action object
  * */
-export function * watchCheckEmail() {
-  yield takeEvery(TYPES.CHECK_EMAIL, checkEmail);
-  yield takeEvery(TYPES.LOGIN, login);
-  yield takeEvery(TYPES.REGISTER, register);
-  yield takeEvery(TYPES.LOGIN_SUCCESS, sagaLoginSuccess);
-  yield takeEvery(TYPES.LOGIN_FAILURE, sagaLoginFailure);
+export function * sagaRegisterSuccess(action) {
+  store('email', action.email);
+  store('token', action.token);
+  yield put(showMessage('register success'));
+  yield put(toggleAuthDialog());
 }
+
+/**
+ * show why after register failure
+ * @param {Object} action - action
+ * */
+export function * sagaRegisterFailure(action) {
+  yield put(showMessage(action.why));
+}
+
+/**
+ * delete stored token and email, show message
+ * */
+export function * sagaLogout() {
+  del('email');
+  del('token');
+  yield put(showMessage('log out success'));
+}
+

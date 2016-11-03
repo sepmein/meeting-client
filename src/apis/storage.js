@@ -18,3 +18,11 @@ export function get(key) {
 export function store(key, value) {
   localStorage.setItem(key, value);
 }
+
+/**
+ * delete storage key
+ * @param {String} key - key to delete
+ * */
+export function del(key) {
+  localStorage.removeItem(key);
+}

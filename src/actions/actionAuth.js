@@ -21,6 +21,9 @@ TYPES.IS_VALID_EMAIL_INPUT = 'IS_VALID_EMAIL_INPUT';
 TYPES.IS_INVALID_EMAIL_INPUT = 'IS_INVALID_EMAIL_INPUT';
 TYPES.SET_AS_RETURNING_USER = 'SET_AS_RETURNING_USER';
 TYPES.SET_EMAIL_CHECKED = 'SET_EMAIL_CHECKED';
+TYPES.CLICK_BACKWARD = 'CLICK_BACKWARD';
+TYPES.LOGOUT = 'LOGOUT';
+TYPES.TOGGLE_USER_MENU = 'TOGGLE_USER_MENU';
 // actions
 // define that something happened
 export let login = (email, password) => {
@@ -127,3 +130,20 @@ export let setUsernameChecked = () => {
   };
 };
 
+export let clickBackward = () => {
+  return {
+    type: TYPES.CLICK_BACKWARD
+  };
+};
+
+export let logout = () => {
+  return {
+    type: TYPES.LOGOUT
+  };
+};
+
+export let toggleUserMenu = () => {
+  return {
+    type: TYPES.TOGGLE_USER_MENU
+  };
+};

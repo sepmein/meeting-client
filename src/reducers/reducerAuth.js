@@ -7,7 +7,7 @@
  * */
 
 // import actions and constants
-import {TYPES} from '../actions/actionAuth';
+import {TYPES} from "../actions/actionAuth";
 // define initial state
 let initialState = {
   email: localStorage.getItem('email'),
@@ -17,7 +17,8 @@ let initialState = {
   isAuthDialogOpened: false,
   isReturningUser: false,
   emailChecked: false,
-  showEmailInputErrorText: false
+  showEmailInputErrorText: false,
+  isUserMenuOpened: false
 };
 /**
  * The meetingApp function of the auth part.
@@ -27,27 +28,45 @@ let initialState = {
  * */
 export default function reducerAuth(state = initialState, action) {
   switch (action.type) {
-    case TYPES.LOGIN || TYPES.REGISTER: {
-      return {
+    case TYPES.LOGIN: {
+      return Object.assign({}, state, {
         isAuthenticating: true,
-        email: null,
         token: null
-      };
+      });
     }
-    case TYPES.LOGIN_SUCCESS || TYPES.REGISTER_SUCCESS: {
-      return {
+    case TYPES.REGISTER: {
+      return Object.assign({}, state, {
+        isAuthenticating: true,
+        token: null
+      });
+    }
+    case TYPES.LOGIN_SUCCESS: {
+      return Object.assign({}, state, {
         isAuthenticating: false,
         email: action.email,
         token: action.token
-      };
+      });
     }
-    case TYPES.LOGIN_FAILURE || TYPES.REGISTER_FAILURE: {
-      return {
+    case TYPES.REGISTER_SUCCESS: {
+      return Object.assign({}, state, {
         isAuthenticating: false,
-        email: null,
+        email: action.email,
+        token: action.token
+      });
+    }
+    case TYPES.LOGIN_FAILURE: {
+      return Object.assign({}, state, {
+        isAuthenticating: false,
         token: null,
         why: action.why
-      };
+      });
+    }
+    case TYPES.REGISTER_FAILURE: {
+      return Object.assign({}, state, {
+        isAuthenticating: false,
+        token: null,
+        why: action.why
+      });
     }
     case TYPES.FORGOT: {
       return Object.assign({}, state, {
@@ -92,6 +111,29 @@ export default function reducerAuth(state = initialState, action) {
     case TYPES.IS_INVALID_EMAIL_INPUT: {
       return Object.assign({}, state, {
         showEmailInputErrorText: true
+      });
+    }
+    case TYPES.CLICK_BACKWARD: {
+      return Object.assign({}, state, {
+        emailChecked: false,
+        isReturningUser: false
+      });
+    }
+    case TYPES.LOGOUT: {
+      return Object.assign({}, state, {
+        email: undefined,
+        token: undefined,
+        isAuthenticating: false,
+        why: '',
+        isAuthDialogOpened: false,
+        isReturningUser: false,
+        emailChecked: false,
+        showEmailInputErrorText: false
+      });
+    }
+    case TYPES.TOGGLE_USER_MENU: {
+      return Object.assign({}, state, {
+        isUserMenuOpened: !state.isUserMenuOpened
       });
     }
     default: {

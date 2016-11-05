@@ -1,7 +1,7 @@
 import React from "react";
 import Divider from "material-ui/Divider";
 import "./footer.css";
-import Planner from "../planner/planner.js";
+import Planner from "../planner/planner.jsx";
 import Message from "../message/message";
 const Footer = () => (
   <div className="footer">

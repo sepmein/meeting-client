@@ -1,13 +1,15 @@
 {
   "extends": "google",
   "installedESLint": true,
-  "plugin": ["react"],
+  "plugins": [
+    "react"
+  ],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     }
   },
-  "env" : {
+  "env": {
     "browser": true,
     "node": true,
     "es6": true

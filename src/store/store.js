@@ -6,7 +6,6 @@
  * @see reducers
  * @export Object store - the redux store object.
  * */
-import React from "react";
 import meetingApp from "../reducers";
 import {createStore, applyMiddleware, compose} from "redux";
 import createSagaMiddleware from "redux-saga";

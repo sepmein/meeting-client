@@ -1,6 +1,7 @@
 import {takeEvery} from "redux-saga";
 import {TYPES as AUTH_TYPES} from "../actions/actionAuth";
 import {TYPES as MESSAGE_TYPES} from "../actions/actionMessage";
+import {TYPES as PLANNER_TYPES} from "../actions/actionPlanner";
 import {
   checkEmail,
   sagaLogin,
@@ -12,6 +13,7 @@ import {
   sagaLogout
 } from "./sagaAuth";
 import {sagaShowMessage} from "./sagaMessage";
+import {sagaAddPlan} from "./sagaPlanner";
 /**
  * watch
  * @yield {Object} put - put effects
@@ -26,4 +28,5 @@ export default function * sagas() {
   yield takeEvery(AUTH_TYPES.REGISTER_FAILURE, sagaRegisterFailure);
   yield takeEvery(AUTH_TYPES.LOGOUT, sagaLogout);
   yield takeEvery(MESSAGE_TYPES.SHOW_MESSAGE, sagaShowMessage);
+  yield takeEvery(PLANNER_TYPES.ADD_PLAN, sagaAddPlan);
 }

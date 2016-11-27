@@ -25,7 +25,7 @@ class Planner extends React.Component {
     open: false,
     finished: false,
     stepIndex: 0,
-    meetingType: 'monthly',
+    type: 'monthly',
     dateToBeDetermined: false,
     meetingRoomToBeDetermined: false
   };
@@ -57,7 +57,7 @@ class Planner extends React.Component {
   };
 
   handleMeetingTypeSelection = (event, value) => {
-    this.setState({meetingType: value});
+    this.setState({type: value});
   };
 
 
@@ -85,7 +85,7 @@ class Planner extends React.Component {
 
   handleSubmit = () => {
     this.props.handleSubmitMeetingPlan({
-      meetingType: this.state.meetingType,
+      type: this.state.type,
       date: this.state.dateToBeDetermined ? null : this.state.date,
       room: this.state.meetingRoomToBeDetermined ? null : this.state.meetingRoom
     });
@@ -96,7 +96,7 @@ class Planner extends React.Component {
       case 0:
         return (
           <RadioButtonGroup
-            name='meetingTypeSelection'
+            name='typeSelection'
             default='monthly'
             defaultSelected={this.state.type}
             onChange={this.handleMeetingTypeSelection}>
@@ -151,7 +151,7 @@ class Planner extends React.Component {
       case 2:
         return (
           <div>
-            <p>类型：{this.state.meetingType}</p>
+            <p>类型：{this.state.type}</p>
             <p>日期：{this.state.dateToBeDetermined ?
               '待定' : this.getDateString()}</p>
             <p>会议室：{this.state.meetingRoomToBeDetermined || !this.state.meetingRoom
@@ -180,8 +180,7 @@ class Planner extends React.Component {
           title="新增会议计划"
           modal={false}
           open={this.state.open}
-          onRequestClose={this.handleClose}
-        >
+          onRequestClose={this.handleClose}>
           <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
             <Stepper activeStep={stepIndex}>
               <Step>

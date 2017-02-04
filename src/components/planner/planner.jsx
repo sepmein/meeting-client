@@ -11,12 +11,7 @@ import Toggle from "material-ui/Toggle";
 import AutoComplete from "material-ui/AutoComplete";
 import {connect} from "react-redux";
 import {addPlan} from "../../actions/actionPlanner";
-/**
- * Horizontal steppers are ideal when the contents of one step depend on an earlier step.
- * Avoid using long step names in horizontal steppers.
- *
- * Linear steppers require users to complete one step in order to move on to the next.
- */
+
 class Planner extends React.Component {
 
   state = {
@@ -29,6 +24,7 @@ class Planner extends React.Component {
     dateToBeDetermined: false,
     meetingRoomToBeDetermined: false
   };
+
   getDateString = () => {
     return (new Date(this.state.date)).toLocaleDateString();
   };
@@ -91,6 +87,7 @@ class Planner extends React.Component {
     });
     this.handleClose();
   };
+  
   getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:

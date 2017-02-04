@@ -25,6 +25,8 @@ class Plan extends Component {
             label="办结"/>
           <FlatButton
             label="删除"/>
+          <FlatButton
+            label="上传文件"/>
         </CardActions>
       </Card>
     );
@@ -43,4 +45,5 @@ let mapStateToProps = state => {
 let mapDispatchToProps = dispatch => {
   return {};
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(Plan);
